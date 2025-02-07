@@ -34,6 +34,14 @@ package com.example.workclassren.classes
 
         val numbers = arrayOf(1,2,3,4,5,6,7,8,9,10)
     isEven(numbers)
+
+        println(getDay(7))
+
+        val person = Person("Renatta", 22)
+        person.displayInformation()
+
+        println(person.name)
+        println(person.age)
     }
 
     fun add():Int {
@@ -61,3 +69,26 @@ package com.example.workclassren.classes
         }
     }
 
+    fun getDay(day:Int): String{
+        var name= ""
+
+        when(day){
+            1-> name = "Monday"
+            2-> name = "Tuesday"
+            3-> name ="Wednesday"
+            4-> name = "Thursday"
+            5-> name = "Friday"
+            6-> name = "Saturday"
+            7-> name = "Sunday"
+        else -> name = "Incorrect value"
+
+        }
+        return name
+    }
+
+    class Person(val name:String, val age:Int) {
+        fun displayInformation() {
+
+            println("Name: $name Age:$age")
+        }
+    }
