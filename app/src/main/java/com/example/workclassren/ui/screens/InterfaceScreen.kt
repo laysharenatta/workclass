@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -187,7 +188,7 @@ fun RecentActivity(){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(300.dp)
             .background(color = colorResource(R.color.gris_fuerte))
     ){
         Text(
@@ -198,57 +199,122 @@ fun RecentActivity(){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = colorResource(R.color.gris_fuerte)),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .background(color = colorResource(R.color.gris_fuerte))
+                .padding(top=7.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ){
             Column (
                 modifier = Modifier
-                    .background(color = colorResource(R.color.gris_fuerte))
+                    .background(color = colorResource(R.color.gris_fuerte)),
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Image(
                     painter = painterResource(R.drawable.movie1),
-                    contentDescription = "MovieCartel1"
+                    contentDescription = "MovieCartel1",
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(120.dp),
+                    contentScale = ContentScale.Crop
                 )
-
-
+                Text(
+                    "★★★★½",
+                    color = colorResource(R.color.gris_claro)
+                )
             }
             Column (
                 modifier = Modifier
-                    .background(color = colorResource(R.color.gris_fuerte))
+                    .background(color = colorResource(R.color.gris_fuerte)),
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Image(
                     painter = painterResource(R.drawable.movie2),
-                    contentDescription = "MovieCartel1"
+                    contentDescription = "MovieCartel2",
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(120.dp),
+                    contentScale = ContentScale.Crop
                 )
-
-
+                Text(
+                    "★★★★★",
+                    color = colorResource(R.color.gris_claro)
+                )
             }
             Column (
                 modifier = Modifier
-                    .background(color = colorResource(R.color.gris_fuerte))
+                    .background(color = colorResource(R.color.gris_fuerte)),
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Image(
                     painter = painterResource(R.drawable.movie3),
-                    contentDescription = "MovieCartel1"
+                    contentDescription = "MovieCartel3",
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(120.dp),
+                    contentScale = ContentScale.Crop
                 )
-
-
+                Text(
+                    "★★★★½",
+                    color = colorResource(R.color.gris_claro)
+                )
             }
             Column (
                 modifier = Modifier
-                    .background(color = colorResource(R.color.gris_fuerte))
+                    .background(color = colorResource(R.color.gris_fuerte)),
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Image(
                     painter = painterResource(R.drawable.movie4),
-                    contentDescription = "MovieCartel1"
+                    contentDescription = "MovieCartel4",
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(120.dp),
+                    contentScale = ContentScale.Crop
                 )
-
-
+                Text(
+                    "★★★★★",
+                    color = colorResource(R.color.gris_claro)
+                )
             }
 
         }
+        Divider(
+            modifier = Modifier.fillMaxWidth().padding(top=12.dp),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top=7.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically // Alineación vertical centrada
+        ) {
+            Text(
+                text = "More activity",
+                color = Color.Gray,
+                modifier = Modifier
+                    .padding(start = 10.dp), // Ajusta el padding solo en el inicio
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center // Centra el texto dentro de su espacio
+            )
+            Icon(
+                modifier = Modifier
+                    .size(25.dp),
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = "arrow",
+                tint = Color.Gray
+            )
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth().padding(top=12.dp),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+
+
 
     }
+
 }
 
 
