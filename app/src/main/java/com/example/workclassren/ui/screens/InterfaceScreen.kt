@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -39,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.workclassren.R
+import kotlin.math.round
 
 
 @Composable
@@ -46,17 +50,386 @@ fun InterfaceScreen(navController: NavHostController) {
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
 
     ){
         TopBar()
         Divider(color = colorResource(R.color.gris_claro), thickness = 1.dp)
         ProfilePicture()
         Divider(
-            modifier = Modifier.fillMaxWidth(0.9f),
+            modifier = Modifier.fillMaxWidth(),
             color = colorResource(R.color.gris_claro),
             thickness = 1.dp
         )
-        RecentActivity()
+        RecentActivity() //ya tiene un divider abajo
+        MidBars()
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        RemoAds()
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        ListsMovies()
+
+    }
+
+}
+
+//@Preview(showBackground = true)
+@Composable
+fun ListsMovies(){
+    Column (
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color= colorResource(R.color.gris_fuerte))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Films", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "9/9 this year", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                    Icon(
+                        modifier = Modifier.size(34.dp),
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = "Configuracion",
+                        tint = Color.DarkGray
+                    )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Diary",color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "9/9 this year", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Reviews", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "9", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Lists", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "0", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Watchlist",color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "0", color =colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Likes", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "0", color =  colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Tags", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "0", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Following", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "1", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Followers",color = Color.LightGray,
+                fontSize = 27.sp)
+            Row() {
+                Text(text = "1", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Icon(
+                    modifier = Modifier.size(34.dp),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Configuracion",
+                    tint = Color.DarkGray
+                )
+            }
+        }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = colorResource(R.color.gris_claro),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom =15.dp, top=15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Stats", color = Color.LightGray,
+                fontSize = 27.sp)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Upgrade to", color = colorResource(R.color.gris_claro),
+                    fontSize = 27.sp)
+                Text(text= " PRO ", color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    modifier=Modifier
+                        .clip(RoundedCornerShape(5.dp))
+                        .background(color= colorResource(R.color.naranja) ))
+            }
+        }
+    }
+}
+
+//@Preview(showBackground = true)
+@Composable
+fun RemoAds(){
+    Column(
+        modifier = Modifier
+            .background(color = colorResource(R.color.gris_fuerte))
+            .fillMaxWidth()
+            .padding(bottom = 18.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+
+    ){
+        Image(
+            painter = painterResource(R.drawable.anuncioequis),
+            contentDescription = "Anuncio Removible",
+            modifier  = Modifier
+                .size(400.dp)
+                .padding(bottom = 10.dp),
+            contentScale = ContentScale.Fit
+        )
+        Text(text="REMOVE ADS", color = colorResource(R.color.gris_claro),
+            fontSize = 16.sp)
+    }
+
+}
+
+
+//@Preview(showBackground = true)
+@Composable
+fun MidBars(){
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = colorResource(R.color.gris_fuerte))
+            .height(80.dp)
+            .padding(top = 18.dp, bottom = 18.dp),
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ){
+        Text(
+            modifier = Modifier
+                .padding(start = 13.dp),
+            text = "★",
+            color = Color.Green
+        )
+        Row(
+            modifier = Modifier
+                .width(260.dp)
+                .background(color = colorResource(R.color.gris_fuerte))
+                .height(100.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.SpaceBetween
+
+
+        ) {
+
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(15.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(1.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(40.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(27.dp)
+            )
+            Spacer(
+                Modifier.background(color = colorResource(R.color.gris_claro)).width(25.dp)
+                    .height(40.dp)
+            )
+        }
+        Text(
+            modifier = Modifier
+                .padding(end = 13.dp),
+            text = "★★★★★",
+            color = Color.Green
+        )
 
     }
 
@@ -81,7 +454,7 @@ fun TopBar() {
 
         ) {
             Icon(
-                modifier = Modifier.size(30.dp),
+                modifier = Modifier.size(35.dp),
                 imageVector = Icons.Default.Settings,
                 contentDescription = "Configuracion",
                 tint = Color.White
@@ -90,7 +463,7 @@ fun TopBar() {
             Text(
 
                 text = "renace_r",
-                fontSize = 20.sp,
+                fontSize = 23.sp,
                 color = Color.White
             )
             Row(
@@ -110,49 +483,53 @@ fun TopBar() {
             Text(
                 text = "Profile",
                 fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(color = colorResource(R.color.gris_claro))
                     .padding(horizontal = 24.dp)
-                    .height(20.dp)
+                    .height(25.dp)
 
             )
             Text(
                 text = "Diary",
                 fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(color = colorResource(R.color.gris_fuerte))
                     .padding(horizontal = 24.dp)
-                    .height(20.dp)
+                    .height(25.dp)
 
             )
             Text(
                 text = "Lists",
                 fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(color = colorResource(R.color.gris_fuerte))
                     .padding(horizontal = 24.dp)
-                    .height(20.dp)
+                    .height(25.dp)
 
             )
             Text(
                 text = "Watchlist",
                 fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
                     .background(color = colorResource(R.color.gris_fuerte))
                     .padding(horizontal = 24.dp)
-                    .height(20.dp)
+                    .height(25.dp)
 
             )
         }
@@ -167,7 +544,7 @@ fun ProfilePicture() {
         modifier = Modifier
             .background(color = colorResource(R.color.gris_fuerte))
             .fillMaxWidth()
-            .height(180.dp),
+            .height(160.dp),
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -175,20 +552,20 @@ fun ProfilePicture() {
             contentDescription = "Profile Picture",
             contentScale = ContentScale.Crop, // Recorta la imagen para que llene el espacio
             modifier = Modifier
-                .size(80.dp) // Tamaño del círculo
+                .size(100.dp) // Tamaño del círculo
                 .clip(CircleShape) // Recorte circular
                 .border(2.dp, Color.Gray, CircleShape) // Borde opcional
         )
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun RecentActivity(){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+            //.height(270.dp)
             .background(color = colorResource(R.color.gris_fuerte))
     ){
         Text(
@@ -212,8 +589,9 @@ fun RecentActivity(){
                     painter = painterResource(R.drawable.movie1),
                     contentDescription = "MovieCartel1",
                     modifier = Modifier
-                        .width(90.dp)
-                        .height(120.dp),
+                        .width(110.dp)
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
                 Text(
@@ -230,8 +608,9 @@ fun RecentActivity(){
                     painter = painterResource(R.drawable.movie2),
                     contentDescription = "MovieCartel2",
                     modifier = Modifier
-                        .width(90.dp)
-                        .height(120.dp),
+                        .width(110.dp)
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
                 Text(
@@ -248,8 +627,9 @@ fun RecentActivity(){
                     painter = painterResource(R.drawable.movie3),
                     contentDescription = "MovieCartel3",
                     modifier = Modifier
-                        .width(90.dp)
-                        .height(120.dp),
+                        .width(110.dp)
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
                 Text(
@@ -266,8 +646,9 @@ fun RecentActivity(){
                     painter = painterResource(R.drawable.movie4),
                     contentDescription = "MovieCartel4",
                     modifier = Modifier
-                        .width(90.dp)
-                        .height(120.dp),
+                        .width(110.dp)
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(5.dp)),
                     contentScale = ContentScale.Crop
                 )
                 Text(
@@ -294,7 +675,7 @@ fun RecentActivity(){
                 color = Color.Gray,
                 modifier = Modifier
                     .padding(start = 10.dp), // Ajusta el padding solo en el inicio
-                fontSize = 18.sp,
+                fontSize = 22.sp,
                 textAlign = TextAlign.Center // Centra el texto dentro de su espacio
             )
             Icon(
