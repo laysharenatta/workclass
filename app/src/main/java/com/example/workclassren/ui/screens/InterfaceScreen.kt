@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -52,39 +53,41 @@ import kotlin.math.round
 
 @Composable
 fun InterfaceScreen(navController: NavHostController) {
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-
-    ){
-        TopBar()
-        Divider(color = colorResource(R.color.gris_claro), thickness = 1.dp)
-        ProfilePicture()
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = colorResource(R.color.gris_claro),
-            thickness = 1.dp
-        )
-        RecentActivity() //ya tiene un divider abajo
-        MidBars()
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = colorResource(R.color.gris_claro),
-            thickness = 1.dp
-        )
-        RemoAds()
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = colorResource(R.color.gris_claro),
-            thickness = 1.dp
-        )
-        ListsMovies()
-        BottomBar()
-
+    Scaffold(
+        topBar = { TopBar() },
+        bottomBar = { BottomBar() }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Divider(color = colorResource(R.color.gris_claro), thickness = 1.dp)
+            ProfilePicture()
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = colorResource(R.color.gris_claro),
+                thickness = 1.dp
+            )
+            RecentActivity() // ya tiene un divider abajo
+            MidBars()
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = colorResource(R.color.gris_claro),
+                thickness = 1.dp
+            )
+            RemoAds()
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = colorResource(R.color.gris_claro),
+                thickness = 1.dp
+            )
+            ListsMovies()
+        }
     }
-
 }
+
 
 //@Preview(showBackground = true)
 @Composable
@@ -597,11 +600,11 @@ fun ProfilePicture() {
         Image(
             painter = painterResource(R.drawable.prof_pic),
             contentDescription = "Profile Picture",
-            contentScale = ContentScale.Crop, // Recorta la imagen para que llene el espacio
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(100.dp) // Tamaño del círculo
-                .clip(CircleShape) // Recorte circular
-                .border(2.dp, Color.Gray, CircleShape) // Borde opcional
+                .size(100.dp)
+                .clip(CircleShape)
+                .border(2.dp, Color.Gray, CircleShape)
         )
     }
 }
