@@ -19,8 +19,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -75,10 +80,52 @@ fun InterfaceScreen(navController: NavHostController) {
             thickness = 1.dp
         )
         ListsMovies()
+        BottomBar()
 
     }
 
 }
+
+//@Preview(showBackground = true)
+@Composable
+fun BottomBar(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = colorResource(R.color.gris_claro))
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ){
+        Icon(imageVector = Icons.Default.Home,
+            contentDescription = "Icono de Incio",
+            tint = Color.White,
+            modifier = Modifier
+                .size(35.dp))
+
+        Icon(imageVector = Icons.Default.Search,
+            contentDescription = "Icono de buscar",
+            tint = Color.White,
+            modifier = Modifier
+                .size(35.dp))
+        Icon(imageVector = Icons.Filled.AddCircle,
+            contentDescription = "Icono de Agregar",
+            tint = Color.Green,
+        modifier = Modifier
+            .size(35.dp))
+        Icon(imageVector = Icons.Default.Notifications,
+            contentDescription = "Icono de actividad",
+            tint = Color.White,
+            modifier = Modifier
+                .size(35.dp))
+        Icon(imageVector = Icons.Default.Person,
+            contentDescription = "Icono de Perfil",
+            tint = Color.Cyan,
+            modifier = Modifier
+                .size(35.dp))
+    }
+}
+
 
 //@Preview(showBackground = true)
 @Composable
