@@ -36,6 +36,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.HomeScreen
 import com.example.workclassren.ui.screens.MainMenuScreen
 import com.example.workclassren.ui.screens.TestScreen
@@ -68,7 +69,11 @@ fun SetupNavGraph(navController: NavHostController){
         composable("main_menu"){ MainMenuScreen(navController)}
         composable ("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController)}
+
+        composable("components_screen"){ ComponentsScreen(navController) }
+
         composable("interface_screen"){ InterfaceScreen(navController)}
+
     }
 
 }}
