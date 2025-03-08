@@ -3,6 +3,7 @@ package com.example.workclassren
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -39,158 +40,22 @@ import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.HomeScreen
 import com.example.workclassren.ui.screens.MainMenuScreen
 import com.example.workclassren.ui.screens.TestScreen
+import com.example.workclassren.ui.screens.InterfaceScreen
 import com.example.workclassren.ui.theme.WorkClassRenTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //  enableEdgeToEdge()
+         //enableEdgeToEdge()
         setContent {
             WorkClassRenTheme {
                 ComposeMultiScreenApp()
 
-                /*Column() {
-                    Column() {
-                        TextComposable("Renatta")
-                        TextComposable()
-                        TextComposable()
-                        TextComposable()
-                    }
-                    Row() {
-                        TextComposable()
-                        TextComposable()
-                        TextComposable()
-                        TextComposable()
-                    }
-                    Column() {
-                        ModifierExample2()
-                        ModifierExample4()
-                        CustomText()
-                        picture()
-                    }
-                }*/
 
             }
         }
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun TextComposable(name: String = "Empty") {
-        Text("Welcome")
-        Text(name)
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun ModifierExample1() {
-        Column(
-            modifier = Modifier
-                .padding(40.dp, 30.dp, 20.dp, 10.dp)
-        ) {
-            Text("Hello World")
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun ModifierExample2() {
-        Column(
-            modifier = Modifier
-                .padding(24.dp)
-                .fillMaxWidth()
-                .clickable(onClick = { clickAction() })
-        ) {
-            Text("Hello World")
-        }
-    }
-
-    fun clickAction() {
-        println("Column Clicked")
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun ModifierExample3() {
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(16.dp)
-                .background(Color.Green)
-                .border(width = 2.dp, color = Color.Blue)
-                .width(200.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            TextComposable("1")
-            TextComposable("2")
-            TextComposable("3")
-            TextComposable("4")
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun ModifierExample4() {
-        Box(
-            modifier = Modifier
-                .background(Color.Red)
-                .padding(10.dp)
-                .height(300.dp)
-                .width(300.dp)
-        ) {
-            Text("1", Modifier.align(Alignment.TopStart))
-            Text("2", Modifier.align(Alignment.TopCenter))
-            Text("3", Modifier.align(Alignment.TopEnd))
-            Text("4", Modifier.align(Alignment.CenterStart))
-            Text("5", Modifier.align(Alignment.Center))
-            Text("6", Modifier.align(Alignment.CenterEnd))
-            Text("7", Modifier.align(Alignment.BottomStart))
-            Text("8", Modifier.align(Alignment.BottomCenter))
-            Text("9", Modifier.align(Alignment.BottomEnd))
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun CustomText() {
-        Column() {
-            Text(
-                stringResource(R.string.sample_text),
-                color = colorResource(R.color.purple_200),
-                fontSize = 20.sp,
-                fontStyle = FontStyle.Italic,
-                fontWeight = FontWeight.ExtraBold
-            )
-            val gradientColors =
-                listOf(Color.Red, colorResource(R.color.purple_200), Color.Blue, Color.Green)
-            Text(
-                stringResource(R.string.sample_text),
-                style = TextStyle(brush = Brush.linearGradient(colors = gradientColors))
-            )
-        }
-    }
-
-
-
-        @Preview(showBackground = true)
-        @Composable
-                fun picture(){
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
-                            .background(Color.Black)
-                            .height(300.dp)
-
-                    ){
-                       Image(
-                           modifier = Modifier.fillMaxWidth(),
-                           painter = painterResource(R.drawable.matrix),
-                           contentDescription = "matrix",
-                           contentScale = ContentScale.FillHeight
-                       )
-                                }
-        }
-    } //close class
 
 @Composable
 fun ComposeMultiScreenApp(){
@@ -204,8 +69,12 @@ fun SetupNavGraph(navController: NavHostController){
         composable("main_menu"){ MainMenuScreen(navController)}
         composable ("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController)}
+
         composable("components_screen"){ ComponentsScreen(navController) }
+
+        composable("interface_screen"){ InterfaceScreen(navController)}
+
     }
 
-}
+}}
 
