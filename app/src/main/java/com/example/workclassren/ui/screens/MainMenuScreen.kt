@@ -34,7 +34,13 @@ fun MainMenuScreen(navController: NavHostController) {
         ) {
             Text("Go to Letterbox")
         }
+            Button(
+                onClick = { navController.navigate("components_screen") }
+            ) {
+                Text("Go to Components")
+            }
+        }
     }
-}
+
 
 
