@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
@@ -19,6 +21,8 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.InputChip
+import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
@@ -155,4 +159,50 @@ var selected by remember { mutableStateOf(false)}
 
     } else {
         null
-            }   ) }}
+            }   )
+    InputChipExample("Dismiss",{})
+    }}
+
+@Composable
+fun InputChipExample(
+    text: String,
+    onDismiss: () -> Unit
+){
+    var enabled by remember { mutableStateOf(true) }
+    if (!enabled) return
+
+    InputChip(
+        label = {Text(text)},
+        selected = enabled,
+        onClick = {
+            onDismiss()
+           enabled= !enabled
+        },
+        avatar = {
+            Icon(
+                Icons.Filled.Person,
+                contentDescription = "Icon Person",
+                Modifier.size(InputChipDefaults.AvatarSize)
+            )
+        },
+        trailingIcon ={
+            Icon(
+                Icons.Filled.Close,
+                contentDescription = "Icon Person",
+                Modifier.size(InputChipDefaults.AvatarSize)
+            )
+        }
+    )
+
+}
+
+
+
+
+
+
+
+
+
+
+
