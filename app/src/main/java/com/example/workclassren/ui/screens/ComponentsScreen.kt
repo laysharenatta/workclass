@@ -26,6 +26,8 @@ import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderPositions
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -36,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -45,7 +48,8 @@ fun ComponentsScreen(navController: NavHostController){
         //Buttons()
         //FloatingButtons()
         //Progress()
-    Chips()
+        //Chips()
+    Sliders()
 }
 
 //@Preview(showBackground = true)
@@ -195,6 +199,32 @@ fun InputChipExample(
     )
 
 }
+
+
+@Preview(showBackground = true)
+@Composable
+fun Sliders(){
+    Column (
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+
+        var SliderPositions by remember { mutableStateOf(50f) }
+        Slider(
+            value = SliderPositions,
+            onValueChange = {SliderPositions= it},
+            steps = 10,
+            valueRange= 0f .. 100f
+        )
+        Text(
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth(),
+            text= SliderPositions.toString()
+        )
+    }}
 
 
 
