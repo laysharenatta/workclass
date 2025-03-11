@@ -62,6 +62,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -398,7 +399,7 @@ fun Badges() {
 @Preview(showBackground = true)
 @Composable
 fun SnackBars() {
-    // This function displays SnackBars.
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -493,9 +494,21 @@ fun Bars(){
             PostCardModel(4,"title4","text4", R.drawable.matrix),
             PostCardModel(5,"title5","text5", R.drawable.matrix),
             PostCardModel(6,"title6","text6", R.drawable.matrix),
+            PostCardModel(7,"title7","text6", R.drawable.matrix),
+            PostCardModel(8,"title8","text6", R.drawable.matrix),
+            PostCardModel(9,"title9","text6", R.drawable.matrix),
         )
         LazyRow(modifier = Modifier.fillMaxSize().weight(1f)
         ) { items(arrayPosts){item -> PostCardComponent(item.id,item.title,item.text,item.image) } }
+        //PREGUNTAR EN CLASE
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+        ) {
+
+        }
         BottomAppBar(
             containerColor = Color.DarkGray,
             contentColor = Color.White
@@ -531,7 +544,26 @@ fun Bars(){
 }
 
 
+@Composable
+fun Adaptive(){
+    var windowsSize =currentWindowAdaptiveInfo().windowSizeClass
+    var height = currentWindowAdaptiveInfo().windowSizeClass.windowHeightSizeClass
+    var width = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
 
+//Compact width <600 dp Phone Portrait
+//Medium width >= 600 dp < 840 dp Tablet Portrait
+//Expanded width >= 840 dp Tablet Landscape
+
+//Compact height<480dp Phone Landscape
+//Medium height >=480 dp <900 dp Tablet Landscape o Phone portrait
+//Expanded height >= 900 dp Tablet portrait
+
+    Column {
+        Text(windowsSize.toString())
+        Text(height.toString())
+        Text(width.toString())
+
+    }}
 
 
 
