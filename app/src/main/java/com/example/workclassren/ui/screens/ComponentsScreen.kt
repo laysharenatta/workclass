@@ -18,10 +18,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
@@ -59,6 +68,9 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.SnackbarHost
@@ -73,6 +85,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -103,24 +116,24 @@ import java.util.logging.Filter
 
 
 @Composable
-fun AndroidComponents (navController: NavHostController){
+fun ComponentsScreen (navController: NavHostController){
 
     val menuOptions= arrayOf(
-        MenuModel(1,"Buttons", "buttons", Icons.Filled.Add), //arreglo de un elemento basado en un modelo
-        MenuModel(2,"Floating Buttons", "second", Icons.Filled.Add),
-        MenuModel(3,"Progress", "third", Icons.Filled.Add),
-        MenuModel(4,"Chips", "fourth", Icons.Filled.Add),
-        MenuModel(5,"Sliders", "five", Icons.Filled.Add),
-        MenuModel(6,"Switches", "sixth", Icons.Filled.Add),
-        MenuModel(7,"Badges", "seven", Icons.Filled.Add),
-        MenuModel(8,"Snack Bars", "eight", Icons.Filled.Add),
-        MenuModel(9,"Alert Dialog", "nine", Icons.Filled.Add),
-        MenuModel(10,"Bars", "ten", Icons.Filled.Add),
-        MenuModel(10,"Input Fields", "eleven", Icons.Filled.Add),
-        MenuModel(10,"Date Pickers", "twelve", Icons.Filled.Add),
-        MenuModel(10,"Pull to refresh", "ten", Icons.Filled.Add),
-        MenuModel(10,"Bottom Sheets", "ten", Icons.Filled.Add),
-        MenuModel(10,"Segmented Bottoms", "ten", Icons.Filled.Add)
+        MenuModel(1,"Buttons", "buttons", Icons.Filled.AddCircle), //arreglo de un elemento basado en un modelo
+        MenuModel(2,"Floating Buttons", "floating_buttons", Icons.Filled.Add),
+        MenuModel(3,"Progress", "progress", Icons.Filled.Check),
+        MenuModel(4,"Chips", "chips", Icons.Filled.Email),
+        MenuModel(5,"Sliders", "sliders", Icons.Filled.ShoppingCart),
+        MenuModel(6,"Switches", "switches", Icons.Filled.Warning),
+        MenuModel(7,"Badges", "badges", Icons.Filled.Menu),
+        MenuModel(8,"Snack Bars", "snack_bars", Icons.Filled.Create),
+        MenuModel(9,"Alert Dialog", "alert_dialog", Icons.Filled.Notifications),
+        MenuModel(10,"Bars", "bars", Icons.Filled.CheckCircle),
+        MenuModel(11,"Input Fields", "input_fields", Icons.Filled.Favorite),
+        MenuModel(12,"Date Pickers", "date_pickers", Icons.Filled.Call),
+        MenuModel(13,"Pull to refresh", "pull_to_refresh", Icons.Filled.DateRange),
+        MenuModel(14,"Bottom Sheets", "bottom_sheets", Icons.Filled.Home),
+        MenuModel(15,"Segmented Buttons", "segmented_buttons", Icons.Filled.Person)
 
 
 
@@ -162,41 +175,41 @@ fun AndroidComponents (navController: NavHostController){
 
         Column{
             when(option){
-                "first" -> {
+                "buttons" -> {
                     Buttons()
                 }
-                "second" -> {
+                "floating_buttons" -> {
                     FloatingButtons()
                 }
-                "third" -> {
+                "progress" -> {
                     Progress()
                 }
-                "fourth" ->{
+                "chips" ->{
                     Chips()
                 }
-                "five" -> {
+                "sliders" -> {
                     Sliders()
                 }
-                "sixth" -> {
+                "switches" -> {
                     Switches()
                 }
-                "seven" -> {
+                "badges" -> {
                     Badges()
                 }
-                "eight" -> {
+                "snack_bars" -> {
                     SnackBars()
                 }
-                "nine" -> {
+                "alert_dialogs" -> {
                     AlertDialogs()
                 }
-                "ten" -> {
+                "bars" -> {
                     Bars()
                 }
-                "eleven" -> {
+                "input_fields" -> {
                     InputFields()
 
                 }
-                "twelve" -> {
+                "date_pickers" -> {
                     DatePickers(onDateSelected = { selectedDate ->
                         // Manejar la fecha seleccionada aquí
                         println("Fecha seleccionada: $selectedDate")
@@ -207,6 +220,10 @@ fun AndroidComponents (navController: NavHostController){
                         })
 
                 }
+                "segmented_buttons" -> {
+                    SegmentedButtons()
+                }
+                
 
             }
         }
@@ -682,6 +699,8 @@ fun Adaptive (){
 }
 
 
+
+
 @Composable
 fun InputFields (){
     var text by remember { mutableStateOf("") }
@@ -695,7 +714,7 @@ fun InputFields (){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickers( //date picker modal
+fun DatePickers( // modal
     onDateSelected: (Long?) -> Unit, //se ejecuta al seleccionar una fecha
     onDismiss: () -> Unit
 ) {
@@ -718,5 +737,29 @@ fun DatePickers( //date picker modal
         }
     ) {
         DatePicker(state = datePickerState)
+    }
+}
+
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SegmentedButtons(modifier: Modifier = Modifier) {
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    val options = listOf("Day", "Month", "Week")
+
+    SingleChoiceSegmentedButtonRow {
+        options.forEachIndexed { index, label ->
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(
+                    index = index,
+                    count = options.size
+                ),
+                onClick = { selectedIndex = index },
+                selected = index == selectedIndex,
+                label = { Text(label) }
+            )
+        }
     }
 }
