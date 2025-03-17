@@ -125,6 +125,19 @@ import org.jetbrains.annotations.ApiStatus
 import java.util.logging.Filter
 
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.composed
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 
@@ -240,12 +253,92 @@ fun ComponentsScreen (navController: NavHostController){
                 "bottom_sheets"->{
                     BottomSheet()
                 }
-               /* "pull_to_refresh"-> {
+               "pull_to_refresh"-> {
                     PullToRefresh()
-                }*/
+                }
             }
         }
 
+    }
+}
+
+
+
+@Composable
+fun PullToRefresh() {
+    var isRefreshing by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+    var offsetY by remember { mutableStateOf(0f) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.LightGray)
+            .pullToRefresh(
+                isRefreshing = isRefreshing,
+                onRefresh = {
+                    coroutineScope.launch {
+                        isRefreshing = true
+                        delay(2000) // Simula la carga
+                        isRefreshing = false
+                        offsetY = 0f
+                    }
+                },
+                onDragChange = { delta ->
+                    if (!isRefreshing) {
+                        offsetY += delta
+                        if (offsetY > 120f) offsetY = 120f // Limite de arrastre
+                    }
+                }
+            ),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Top
+        ) {
+            if (isRefreshing || offsetY > 30f) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+
+            repeat(20) {
+                Text(
+                    text = "Elemento $it",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .background(Color.White)
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Extensión para detectar el gesto de "pull-to-refresh"
+ */
+fun Modifier.pullToRefresh(
+    isRefreshing: Boolean,
+    onRefresh: () -> Unit,
+    onDragChange: (Float) -> Unit
+) = composed {
+    pointerInput(isRefreshing) {
+        detectVerticalDragGestures(
+            onVerticalDrag = { _, dragAmount ->
+                onDragChange(dragAmount)
+            },
+            onDragEnd = {
+                if (!isRefreshing) {
+                    onRefresh()
+                }
+            }
+        )
     }
 }
 
