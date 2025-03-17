@@ -65,6 +65,7 @@ import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalDrawerSheet
@@ -92,6 +93,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -113,6 +115,9 @@ import com.example.workclassren.data_model.MenuModel
 import com.example.workclassren.data_model.PostCardModel
 import com.example.workclassren.ui.components.PostCardCompactComponent
 import com.example.workclassren.ui.components.PostCardComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.ApiStatus
 import java.util.logging.Filter
@@ -232,14 +237,11 @@ fun ComponentsScreen (navController: NavHostController){
                 "bottom_sheets"->{
                     BottomSheet()
                 }
-                
-
             }
         }
 
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -580,17 +582,17 @@ fun Bars(){
                     Icon(imageVector = Icons.Filled.Settings, contentDescription = "Icon 2" )
                 }
             }
-        ) /*
+        )
         val arrayPost= arrayOf(
-            PostCardModel(1,"Title 1", "Text 1", R.drawable.images),
-            PostCardModel(2,"Title 2", "Text 2", R.drawable.images),
-            PostCardModel(3,"Title 3", "Text 3", R.drawable.images),
-            PostCardModel(4,"Title 4", "Text 4", R.drawable.images),
-            PostCardModel(5,"Title 5", "Text 5", R.drawable.images),
-            PostCardModel(6,"Title 6", "Text 6", R.drawable.images),
-            PostCardModel(7,"Title 7", "Text 7", R.drawable.images),
-            PostCardModel(8,"Title 8", "Text 8", R.drawable.images),
-            PostCardModel(9,"Title 9", "Text 9", R.drawable.images)
+            PostCardModel(1,"Title 1", "Text 1", R.drawable.matrix),
+            PostCardModel(2,"Title 2", "Text 2", R.drawable.matrix),
+            PostCardModel(3,"Title 3", "Text 3", R.drawable.matrix),
+            PostCardModel(4,"Title 4", "Text 4", R.drawable.matrix),
+            PostCardModel(5,"Title 5", "Text 5", R.drawable.matrix),
+            PostCardModel(6,"Title 6", "Text 6", R.drawable.matrix),
+            PostCardModel(7,"Title 7", "Text 7", R.drawable.matrix),
+            PostCardModel(8,"Title 8", "Text 8", R.drawable.matrix),
+            PostCardModel(9,"Title 9", "Text 9", R.drawable.matrix)
 
         )
         LazyHorizontalGrid(
@@ -603,7 +605,7 @@ fun Bars(){
                 PostCardCompactComponent(item.id,item.title,item.text,item.image) //parametros agregados en el PostComponent
             }
         }
-        */
+
         Column (
             modifier = Modifier
                 .weight(1f)
@@ -724,7 +726,7 @@ fun InputFields (){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickers( // modal
-    onDateSelected: (Long?) -> Unit, //se ejecuta al seleccionar una fecha
+    onDateSelected: (Long?) -> Unit,
     onDismiss: () -> Unit
 ) {
     val datePickerState = rememberDatePickerState()
@@ -826,3 +828,5 @@ fun BottomSheet() {
         }
     }
 }
+
+
