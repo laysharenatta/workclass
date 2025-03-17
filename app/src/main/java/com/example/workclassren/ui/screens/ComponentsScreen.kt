@@ -87,6 +87,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -126,6 +128,7 @@ import java.util.logging.Filter
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComponentsScreen (navController: NavHostController){
 
@@ -142,7 +145,7 @@ fun ComponentsScreen (navController: NavHostController){
         MenuModel(10,"Bars", "bars", Icons.Filled.CheckCircle),
         MenuModel(11,"Input Fields", "input_fields", Icons.Filled.Favorite),
         MenuModel(12,"Date Pickers", "date_pickers", Icons.Filled.Call),
-        MenuModel(13,"Pull to refresh", "pull_to_refresh", Icons.Filled.DateRange),
+        MenuModel(13,"Pull To Refresh", "pull_to_refresh", Icons.Filled.DateRange),
         MenuModel(14,"Bottom Sheets", "bottom_sheets", Icons.Filled.Home),
         MenuModel(15,"Segmented Buttons", "segmented_buttons", Icons.Filled.Person)
 
@@ -156,11 +159,11 @@ fun ComponentsScreen (navController: NavHostController){
     var scope = rememberCoroutineScope()
 
     ModalNavigationDrawer (
-        drawerState = drawerState, //cual es el estado del menu abierto o cerrado
+        drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
                 Text("Menú", modifier = Modifier.padding(16.dp))
-                HorizontalDivider() //linea horizontal que divide
+                HorizontalDivider()
                 LazyColumn {
                     items(menuOptions) { item ->
                         NavigationDrawerItem(
@@ -171,7 +174,7 @@ fun ComponentsScreen (navController: NavHostController){
                             selected = false,
                             onClick = {
                                 option = item.option
-                                scope.launch { //accede a la propiedad del estado de drawer y lo cierra
+                                scope.launch {
                                     drawerState.apply {
                                         close()
                                     }
@@ -222,11 +225,11 @@ fun ComponentsScreen (navController: NavHostController){
                 }
                 "date_pickers" -> {
                     DatePickers(onDateSelected = { selectedDate ->
-                        // Manejar la fecha seleccionada aquí
+
                         println("Fecha seleccionada: $selectedDate")
                     },
                         onDismiss = {
-                            // Manejar el cierre del diálogo aquí
+
                             println("DatePicker cerrado")
                         })
 
@@ -237,11 +240,49 @@ fun ComponentsScreen (navController: NavHostController){
                 "bottom_sheets"->{
                     BottomSheet()
                 }
+               /* "pull_to_refresh"-> {
+                    PullToRefresh()
+                }*/
             }
         }
 
     }
 }
+
+
+
+/*
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PullToRefresh() {
+    val refreshState = rememberPullToRefreshState()
+    var isRefreshing by remember { mutableStateOf(false) }
+    val items = remember { (0..40).toList() }
+    val coroutineScope= rememberCoroutineScope()
+    PullToRefreshBox(
+        state=refreshState,
+        isRefreshing=isRefreshing,
+        onRefresh={
+            coroutineScope.launch {
+                isRefreshing= true
+                delay(3000)
+                isRefreshing=false
+            }
+        }
+    ){
+        LazyColumn {
+            items(items){
+                ListItem(
+                    headlineContent = {
+                        Text("Item $it")
+                    }
+                )
+            }
+        }
+    }
+
+}
+*/
 
 @Preview(showBackground = true)
 @Composable

@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
          //enableEdgeToEdge()
         setContent {
+
             WorkClassRenTheme {
                 ComposeMultiScreenApp()
 
