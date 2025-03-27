@@ -13,6 +13,7 @@ import com.example.workclassren.ui.screens.HomeScreen
 import com.example.workclassren.ui.screens.MainMenuScreen
 import com.example.workclassren.ui.screens.TestScreen
 import com.example.workclassren.ui.screens.InterfaceScreen
+import com.example.workclassren.ui.screens.LoginScreen
 import com.example.workclassren.ui.theme.WorkClassRenTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,8 +45,8 @@ fun SetupNavGraph(navController: NavHostController){
         composable("test_screen"){ TestScreen(navController)}
 
         composable("components_screen"){ ComponentsScreen(navController) }
-
         composable("interface_screen"){ InterfaceScreen(navController)}
+        composable("login_screen"){ LoginScreen(navController) }
 
     }
 
