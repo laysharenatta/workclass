@@ -11,6 +11,9 @@ composeBom = "2024.04.01"
 navigationCompose = "2.8.7"
 navigationRuntimeAndroid = "2.9.0-alpha06"
 adaptiveAndroid = "1.0.0"
+coilCompose = "2.4.0"
+converterGson = "2.9.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
