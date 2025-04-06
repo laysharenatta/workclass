@@ -1,4 +1,4 @@
-package com.example.workclassren.data_model
+package com.example.workclassren.data.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
