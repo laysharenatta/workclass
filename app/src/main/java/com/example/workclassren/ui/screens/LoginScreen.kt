@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -39,7 +40,7 @@ fun LoginScreen (navController: NavController) {
     }
 }
 
-
+@Preview(showBackground = true)
 @Composable
 fun LoginForm (){
     Card(
@@ -54,7 +55,10 @@ fun LoginForm (){
                 var password by remember {  mutableStateOf("")}
 
             AsyncImage(
-                model = "URL",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 10.dp),
+                model = "https://cdn.kinocheck.com/i/j7qxa1uc8s.jpg",
                 contentDescription = "Imagen URL",
                 contentScale = ContentScale.Fit
             )
