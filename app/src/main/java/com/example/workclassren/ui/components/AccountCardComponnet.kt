@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.workclass.R
+import com.example.workclassren.R
 
 @Composable
 fun AccountCardComponent(
@@ -44,7 +44,8 @@ fun AccountCardComponent(
                     .height(80.dp)
                     .padding(10.dp),
                 model = imageURL,
-                error = painterResource(R.drawable.fotohistoria_verde),
+                error = painterResource(R.drawable.matrix
+                ),
                 contentDescription = "Account Logo",
                 contentScale = ContentScale.FillBounds
             )
