@@ -17,9 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.workclass.data.model.AccountModel
-import com.example.workclass.data.viewmodel.AccountViewModel
-import com.example.workclass.ui.components.TopBarComponent
+import com.example.workclassren.ui.components.TopBarComponent
+import com.example.workclassren.data.model.AccountModel
+import com.example.workclassren.data.viewmodel.AccountViewModel
+import com.example.workclassren.ui.components.TopBarComponent
+
 @Composable
 fun ManageAccountScreen(navController: NavController, viewModel: AccountViewModel = viewModel())
 {
