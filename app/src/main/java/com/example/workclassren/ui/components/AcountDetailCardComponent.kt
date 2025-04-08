@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.workclass.R
+import com.example.workclassren.R
 
 @Composable
 fun AccountDetailCardComponent(
@@ -39,7 +39,7 @@ fun AccountDetailCardComponent(
                     .width(100.dp)
                     .height(100.dp),
                 model = imageURL,
-                error = painterResource(R.drawable.amogus),
+                error = painterResource(R.drawable.matrix),
                 contentDescription = "Account logo",
                 contentScale = ContentScale.FillBounds
             )

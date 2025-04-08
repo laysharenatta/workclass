@@ -19,11 +19,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.workclass.data.model.AccountModel
-import com.example.workclass.data.viewmodel.AccountViewModel
-import com.example.workclass.ui.components.AccountCardComponent
-import com.example.workclass.ui.components.AccountDetailCardComponent
-import com.example.workclass.ui.components.TopBarComponent
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.workclassren.data.model.AccountModel
+import com.example.workclassren.data.viewmodel.AccountViewModel
+import com.example.workclassren.ui.components.AccountCardComponent
+import com.example.workclassren.ui.components.AccountDetailCardComponent
+import com.example.workclassren.ui.components.TopBarComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,6 +87,11 @@ fun AccountScreen(navController: NavController, viewModel: AccountViewModel = vi
                 accountDetail?.imageURL ?: "",
                 accountDetail?.description ?: ""
             )
+
+
+            }
+
+
+
         }
     }
-}
