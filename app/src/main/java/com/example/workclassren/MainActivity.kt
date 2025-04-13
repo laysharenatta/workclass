@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.workclassren.data.dataBase.AppDataBase
 import com.example.workclassren.data.dataBase.dataBaseProvider
-import com.example.workclassren.ui.screens.AccountsScreen
+import com.example.workclassren.ui.screens.AccountScreen
 import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.FavoriteAccountScreen
 import com.example.workclassren.ui.screens.HomeScreen
@@ -65,7 +65,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("components_screen"){ ComponentsScreen(navController) }
         composable("interface_screen"){ InterfaceScreen(navController)}
         composable("login_screen"){ LoginScreen(navController) }
-        composable("accounts_screen") { AccountsScreen(navController) }
+        composable("accounts_screen") { AccountScreen(navController) }
         composable("manage_account_screen") { ManageAccountScreen(navController) }
         composable("favoriteaccount_screen"){ FavoriteAccountScreen(navController) }
 

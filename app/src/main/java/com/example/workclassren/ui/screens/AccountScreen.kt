@@ -1,6 +1,7 @@
 package com.example.workclassren.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.workclassren.data.dataBase.AppDataBase
+
 import com.example.workclassren.data.dataBase.dataBaseProvider
 import com.example.workclassren.data.model.AccountModel
 import com.example.workclassren.data.model.toAccountEntity
@@ -28,13 +30,14 @@ import com.example.workclassren.data.viewmodel.AccountViewModel
 import com.example.workclassren.ui.components.AccountCardComponent
 import com.example.workclassren.ui.components.AccountDetailCardComponent
 import com.example.workclassren.ui.components.TopBarComponent
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountsScreen (
+fun AccountScreen(
     navController: NavController,
     viewModel: AccountViewModel = viewModel()
 ) {
@@ -44,12 +47,14 @@ fun AccountsScreen (
         skipPartiallyExpanded = false
     )
     var accountDetail by remember { mutableStateOf<AccountModel?>(null) }
+
     val db: AppDataBase = dataBaseProvider.getDataBase(LocalContext.current)
     val accountDao = db.accountDao()
 
+    val context = LocalContext.current
 
     Column {
-        TopBarComponent("Accounts", navController, "accounts_screen")
+        TopBarComponent("Accounts",navController, "accounts_screen")
 
         LaunchedEffect(Unit) {
             viewModel.getAccounts { response ->
@@ -61,20 +66,21 @@ fun AccountsScreen (
             }
         }
         val listState = rememberLazyListState()
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
             state = listState
         ) {
             items(accounts) { account ->
-                AccountCardComponent (
+                AccountCardComponent(
                     account.id,
                     account.name,
                     account.username,
-                    account.imageURL,
+                    account.imageURL.toString(),
                     onButtonClick = {
-                        viewModel.getAccount(account.id) { response ->
-                            if (response.isSuccessful) {
+                        viewModel.getAccount(account.id){ response ->
+                            if (response.isSuccessful){
                                 accountDetail = response.body()
                             }
                         }
@@ -83,34 +89,48 @@ fun AccountsScreen (
                 )
             }
         }
-        //AccountCardComponent(1,"name", "user@gmail.com", "")
     }
-    if (showBottomSheet) {
+    if (showBottomSheet){
         ModalBottomSheet(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier
+                .fillMaxHeight(),
             onDismissRequest = {
                 showBottomSheet = false
             },
             sheetState = sheetState
         ) {
-            AccountDetailCardComponent (
+            AccountDetailCardComponent(
                 accountDetail?.id ?: 0,
-                accountDetail?.name ?: " ",
-                accountDetail?.username ?: " ",
-                accountDetail?.password ?: " ",
-                accountDetail?.imageURL ?: " ",
-                accountDetail?.description ?: " ",
+                accountDetail?.name ?: "",
+                accountDetail?.username ?: "",
+                accountDetail?.password ?: "",
+                accountDetail?.imageURL ?: "",
+                accountDetail?.description ?: "",
+                navController = navController,
                 onSaveClick = {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.IO).launch { //Para conectarnos con la base de datos interna y realizar operaciones
                         try {
                             accountDetail?.let { accountDao.insert(it.toAccountEntity()) }
-                            Log.d("debug-db", "Account inserted successfully")
-                        } catch (exception: Exception) {
-                            Log.d("debug-db", "ERROR: $exception")
+                            Log.d("debug-db","account inserted successfully")
+                        }catch (exception: Exception){
+                            Log.d("debug-db","Error: $exception")
                         }
                     }
+                },
+                onDeleteClick = { id ->
+                    viewModel.deleteAccount(id) { response ->
+                        if (response != null) {
+                            Log.d("debug-delete", "Cuenta con ID $id eliminada correctamente")
+                            Toast.makeText(context, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.d("debug-delete", "Error al eliminar la cuenta con ID $id")
+                            Toast.makeText(context, "Error al eliminar", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
                 }
             )
+
         }
     }
 }
