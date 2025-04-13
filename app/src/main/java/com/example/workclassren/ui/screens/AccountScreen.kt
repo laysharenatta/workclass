@@ -17,24 +17,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.example.workclassren.data.dataBase.AppDataBase
+import com.example.workclassren.data.dataBase.dataBaseProvider
 import com.example.workclassren.data.model.AccountModel
+import com.example.workclassren.data.model.toAccountEntity
 import com.example.workclassren.data.viewmodel.AccountViewModel
 import com.example.workclassren.ui.components.AccountCardComponent
 import com.example.workclassren.ui.components.AccountDetailCardComponent
 import com.example.workclassren.ui.components.TopBarComponent
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountScreen(navController: NavController, viewModel: AccountViewModel = viewModel()) {
+fun AccountsScreen (
+    navController: NavController,
+    viewModel: AccountViewModel = viewModel()
+) {
     var accounts by remember { mutableStateOf<List<AccountModel>>(emptyList()) }
-    var showButtonSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = false
+    )
     var accountDetail by remember { mutableStateOf<AccountModel?>(null) }
+    val db: AppDataBase = dataBaseProvider.getDataBase(LocalContext.current)
+    val accountDao = db.accountDao()
+
 
     Column {
         TopBarComponent("Accounts", navController, "accounts_screen")
@@ -48,50 +60,57 @@ fun AccountScreen(navController: NavController, viewModel: AccountViewModel = vi
                 }
             }
         }
-
         val listState = rememberLazyListState()
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             state = listState
         ) {
             items(accounts) { account ->
-                AccountCardComponent(
+                AccountCardComponent (
                     account.id,
                     account.name,
                     account.username,
                     account.imageURL,
-
-                    ) {
-                    viewModel.getAccount(account.id) { response ->
-                        if (response.isSuccessful) {
-                            accountDetail = response.body()
+                    onButtonClick = {
+                        viewModel.getAccount(account.id) { response ->
+                            if (response.isSuccessful) {
+                                accountDetail = response.body()
+                            }
                         }
+                        showBottomSheet = true
                     }
-                    showButtonSheet = true
-                }
+                )
             }
         }
+        //AccountCardComponent(1,"name", "user@gmail.com", "")
     }
-
-    if (showButtonSheet) {
+    if (showBottomSheet) {
         ModalBottomSheet(
             modifier = Modifier.fillMaxHeight(),
-            onDismissRequest = { showButtonSheet = false },
+            onDismissRequest = {
+                showBottomSheet = false
+            },
             sheetState = sheetState
         ) {
-            AccountDetailCardComponent(
+            AccountDetailCardComponent (
                 accountDetail?.id ?: 0,
-                accountDetail?.name ?: "",
-                accountDetail?.username ?: "",
-                accountDetail?.password ?: "",
-                accountDetail?.imageURL ?: "",
-                accountDetail?.description ?: ""
+                accountDetail?.name ?: " ",
+                accountDetail?.username ?: " ",
+                accountDetail?.password ?: " ",
+                accountDetail?.imageURL ?: " ",
+                accountDetail?.description ?: " ",
+                onSaveClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            accountDetail?.let { accountDao.insert(it.toAccountEntity()) }
+                            Log.d("debug-db", "Account inserted successfully")
+                        } catch (exception: Exception) {
+                            Log.d("debug-db", "ERROR: $exception")
+                        }
+                    }
+                }
             )
-
-
-            }
-
-
-
         }
     }
+}
