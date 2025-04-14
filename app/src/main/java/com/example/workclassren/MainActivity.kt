@@ -1,5 +1,6 @@
 package com.example.workclassren
 
+
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -21,7 +22,6 @@ import com.example.workclassren.ui.screens.TestScreen
 import com.example.workclassren.ui.screens.InterfaceScreen
 import com.example.workclassren.ui.screens.LoginScreen
 import com.example.workclassren.ui.screens.ManageAccountScreen
-import com.example.workclassren.ui.theme.WorkClassRenTheme
 
 class MainActivity : ComponentActivity() {
     lateinit var database:AppDataBase
@@ -35,10 +35,10 @@ class MainActivity : ComponentActivity() {
         }
         enableEdgeToEdge()
         setContent {
-            WorkClassRenTheme {
+
                 ComposeMultiScreenApp()
 
-            }
+
         }
     }
 } //CLOSE CLASS
