@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    /**/
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -52,6 +54,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.adaptive.android)
+    implementation(libs.androidx.room.common.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,4 +62,28 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // Coil AsyncImage
+  // implementation(libs.coil.compose)
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+        // Retrofit
+        implementation("com.squareup.retrofit2:retrofit:2.9.0")
+        implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+        // OkHttp (opcional pero recomendado)
+        implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    //
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp ("androidx.room:room-compiler:$room_version")
+
+
+
+
 }
+
+
+

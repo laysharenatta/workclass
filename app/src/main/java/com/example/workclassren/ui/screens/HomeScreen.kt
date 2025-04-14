@@ -31,9 +31,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.workclassren.R
 
+
 @Composable
-fun HomeScreen(navController: NavHostController){
-        topbar()
+fun HomeScreen(navController: NavHostController) {
+
         Column(
             modifier = Modifier.padding(10.dp)
                 .fillMaxSize()
