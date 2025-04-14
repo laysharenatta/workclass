@@ -50,9 +50,9 @@ import androidx.navigation.NavHostController
 import com.example.workclassren.R
 import kotlin.math.round
 
-
 @Composable
 fun InterfaceScreen(navController: NavHostController) {
+
     Scaffold(
         topBar = { TopBar() },
         bottomBar = { BottomBar() }
