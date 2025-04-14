@@ -56,16 +56,19 @@ fun SetupNavGraph(navController: NavHostController){
         composable ("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController)}
         composable("components_screen"){ ComponentsScreen(navController) }
-        composable("interface_screen"){ InterfaceScreen(navController)}
+        composable("interface_screen"){InterfaceScreen (navController)}
         composable("login_screen"){ LoginScreen(navController) }
         composable("accounts_screen") { AccountScreen(navController) }
+
+        // Ruta dinámica para gestionar una cuenta específica por su id
         composable("manage_account_screen?id={id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
             ManageAccountScreen(navController = navController, id = id)
         }
-        composable("favoriteaccount_screen"){ FavoriteAccountScreen(navController) }
 
+        // Pantalla para mostrar las cuentas favoritas
+        composable("favorite_accounts_screen") { FavoriteAccountScreen(navController) }
     }
-
 }
+
 

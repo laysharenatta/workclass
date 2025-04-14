@@ -34,7 +34,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountScreen(
@@ -43,18 +42,15 @@ fun AccountScreen(
 ) {
     var accounts by remember { mutableStateOf<List<AccountModel>>(emptyList()) }
     var showBottomSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false
-    )
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     var accountDetail by remember { mutableStateOf<AccountModel?>(null) }
 
     val db: AppDataBase = dataBaseProvider.getDataBase(LocalContext.current)
     val accountDao = db.accountDao()
-
     val context = LocalContext.current
 
     Column {
-        TopBarComponent("Accounts",navController, "accounts_screen")
+        TopBarComponent("Accounts", navController, "accounts_screen")
 
         LaunchedEffect(Unit) {
             viewModel.getAccounts { response ->
@@ -65,11 +61,11 @@ fun AccountScreen(
                 }
             }
         }
+
         val listState = rememberLazyListState()
 
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             state = listState
         ) {
             items(accounts) { account ->
@@ -79,8 +75,8 @@ fun AccountScreen(
                     account.username,
                     account.imageURL.toString(),
                     onButtonClick = {
-                        viewModel.getAccount(account.id){ response ->
-                            if (response.isSuccessful){
+                        viewModel.getAccount(account.id) { response ->
+                            if (response.isSuccessful) {
                                 accountDetail = response.body()
                             }
                         }
@@ -90,47 +86,59 @@ fun AccountScreen(
             }
         }
     }
-    if (showBottomSheet){
+
+    if (showBottomSheet) {
         ModalBottomSheet(
-            modifier = Modifier
-                .fillMaxHeight(),
+            modifier = Modifier.fillMaxHeight(),
             onDismissRequest = {
                 showBottomSheet = false
             },
             sheetState = sheetState
         ) {
-            AccountDetailCardComponent(
-                accountDetail?.id ?: 0,
-                accountDetail?.name ?: "",
-                accountDetail?.username ?: "",
-                accountDetail?.password ?: "",
-                accountDetail?.imageURL ?: "",
-                accountDetail?.description ?: "",
-                navController = navController,
-                onSaveClick = {
-                    CoroutineScope(Dispatchers.IO).launch { //Para conectarnos con la base de datos interna y realizar operaciones
-                        try {
-                            accountDetail?.let { accountDao.insert(it.toAccountEntity()) }
-                            Log.d("debug-db","account inserted successfully")
-                        }catch (exception: Exception){
-                            Log.d("debug-db","Error: $exception")
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Detalles de la cuenta
+                AccountDetailCardComponent(
+                    accountDetail?.id ?: 0,
+                    accountDetail?.name ?: "",
+                    accountDetail?.username ?: "",
+                    accountDetail?.password ?: "",
+                    accountDetail?.imageURL ?: "",
+                    accountDetail?.description ?: "",
+                    navController = navController,
+                    onSaveClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                accountDetail?.let {
+                                    accountDao.insert(it.toAccountEntity())
+                                    Log.d("debug-db", "Cuenta insertada correctamente")
+                                }
+                            } catch (exception: Exception) {
+                                Log.d("debug-db", "Error: $exception")
+                            }
                         }
-                    }
-                },
-                onDeleteClick = { id ->
-                    viewModel.deleteAccount(id) { response ->
-                        if (response != null) {
-                            Log.d("debug-delete", "Cuenta con ID $id eliminada correctamente")
-                            Toast.makeText(context, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Log.d("debug-delete", "Error al eliminar la cuenta con ID $id")
-                            Toast.makeText(context, "Error al eliminar", Toast.LENGTH_SHORT).show()
+                    },
+                    onDeleteClick = { accountEntity ->
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                accountDao.delete(accountEntity)
+
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    Toast.makeText(context, "Cuenta eliminada correctamente", Toast.LENGTH_SHORT).show()
+                                    showBottomSheet = false
+                                    // Recarga la lista
+                                    viewModel.getAccounts { response ->
+                                        if (response.isSuccessful) {
+                                            accounts = response.body() ?: emptyList()
+                                        }
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                Log.d("debug-db", "Error al eliminar: ${e.message}")
+                            }
                         }
-                    }
+                    })
 
-                }
-            )
-
-        }
+            }
     }
+}
 }
