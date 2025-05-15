@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.workclassren.data.dataBase.AppDataBase
 import com.example.workclassren.data.dataBase.dataBaseProvider
 import com.example.workclassren.ui.screens.AccountScreen
+import com.example.workclassren.ui.screens.CamaraApp
 import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.FavoriteAccountScreen
 import com.example.workclassren.ui.screens.HomeScreen
@@ -59,6 +60,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("interface_screen"){InterfaceScreen (navController)}
         composable("login_screen"){ LoginScreen(navController) }
         composable("accounts_screen") { AccountScreen(navController) }
+        composable("camara_screen") { CamaraApp(navController) }
 
         // Ruta dinámica para gestionar una cuenta específica por su id
         composable("manage_account_screen?id={id}") { backStackEntry ->
