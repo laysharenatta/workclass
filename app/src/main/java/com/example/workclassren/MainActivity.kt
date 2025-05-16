@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.workclassren.data.dataBase.AppDataBase
 import com.example.workclassren.data.dataBase.dataBaseProvider
 import com.example.workclassren.ui.screens.AccountScreen
+import com.example.workclassren.ui.screens.AppScreen
 import com.example.workclassren.ui.screens.CamaraApp
 import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.FavoriteAccountScreen
@@ -23,6 +24,7 @@ import com.example.workclassren.ui.screens.TestScreen
 import com.example.workclassren.ui.screens.InterfaceScreen
 import com.example.workclassren.ui.screens.LoginScreen
 import com.example.workclassren.ui.screens.ManageAccountScreen
+
 
 class MainActivity : ComponentActivity() {
     lateinit var database:AppDataBase
@@ -54,23 +56,24 @@ fun ComposeMultiScreenApp() { //La navegacion entre pantallas
 fun SetupNavGraph(navController: NavHostController){
     NavHost(navController = navController, startDestination = "main_menu") {
         composable("main_menu"){ MainMenuScreen(navController)}
-        composable ("home_screen"){ HomeScreen(navController)}
+        composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController)}
         composable("components_screen"){ ComponentsScreen(navController) }
-        composable("interface_screen"){InterfaceScreen (navController)}
+        composable("interface_screen"){ InterfaceScreen(navController)}
         composable("login_screen"){ LoginScreen(navController) }
         composable("accounts_screen") { AccountScreen(navController) }
         composable("camara_screen") { CamaraApp(navController) }
 
-        // Ruta dinámica para gestionar una cuenta específica por su id
+       composable("app_screen") { AppScreen(navController) }
+
         composable("manage_account_screen?id={id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
             ManageAccountScreen(navController = navController, id = id)
         }
 
-        // Pantalla para mostrar las cuentas favoritas
         composable("favorite_accounts_screen") { FavoriteAccountScreen(navController) }
     }
 }
+
 
 
