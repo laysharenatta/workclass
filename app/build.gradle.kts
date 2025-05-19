@@ -90,6 +90,8 @@ dependencies {
     implementation("androidx.camera:camera-video:$cameraxVersion")
     implementation ("io.coil-kt:coil-compose:2.2.2")  // Usa la versión correcta
 
+    //biometricsensor
+    implementation ("androidx.biometric:biometric:1.2.0-alpha05")
 
 }
 

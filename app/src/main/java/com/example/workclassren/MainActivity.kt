@@ -3,10 +3,13 @@ package com.example.workclassren
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +18,7 @@ import com.example.workclassren.data.dataBase.AppDataBase
 import com.example.workclassren.data.dataBase.dataBaseProvider
 import com.example.workclassren.ui.screens.AccountScreen
 import com.example.workclassren.ui.screens.AppScreen
+import com.example.workclassren.ui.screens.BiometricScreen
 import com.example.workclassren.ui.screens.CamaraApp
 import com.example.workclassren.ui.screens.ComponentsScreen
 import com.example.workclassren.ui.screens.FavoriteAccountScreen
@@ -26,7 +30,8 @@ import com.example.workclassren.ui.screens.LoginScreen
 import com.example.workclassren.ui.screens.ManageAccountScreen
 
 
-class MainActivity : ComponentActivity() {
+//class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     lateinit var database:AppDataBase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +49,8 @@ class MainActivity : ComponentActivity() {
 
         }
     }
-} //CLOSE CLASS
+}
+//CLOSE CLASS
 
 @Composable
 fun ComposeMultiScreenApp() { //La navegacion entre pantallas
@@ -72,6 +78,14 @@ fun SetupNavGraph(navController: NavHostController){
         }
 
         composable("favorite_accounts_screen") { FavoriteAccountScreen(navController) }
+
+        composable("biometric_screen") {
+            val context = LocalContext.current
+            BiometricScreen(navController, onAuthSuccess = {
+                Toast.makeText(context, "¡Autenticación exitosa!", Toast.LENGTH_SHORT).show()
+            })
+        }
+
     }
 }
 

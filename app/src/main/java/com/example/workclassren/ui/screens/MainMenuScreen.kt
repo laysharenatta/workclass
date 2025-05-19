@@ -63,6 +63,13 @@ fun MainMenuScreen(navController: NavHostController) {
             Text("Go to ContactsCalendar Screen")
 
         }
+
+        Button(
+            onClick = { navController.navigate("biometric_screen") }
+        ) {
+            Text("Go to Biometric Sensor Screen")
+
+        }
 }}
 
 
