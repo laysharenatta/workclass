@@ -28,6 +28,7 @@ import com.example.workclassren.ui.screens.TestScreen
 import com.example.workclassren.ui.screens.InterfaceScreen
 import com.example.workclassren.ui.screens.LoginScreen
 import com.example.workclassren.ui.screens.ManageAccountScreen
+import com.example.workclassren.ui.screens.Notifications
 
 
 //class MainActivity : ComponentActivity() {
@@ -85,6 +86,16 @@ fun SetupNavGraph(navController: NavHostController){
                 Toast.makeText(context, "¡Autenticación exitosa!", Toast.LENGTH_SHORT).show()
             })
         }
+
+        //composable(
+        // route = "notifications_screen",
+        //deepLinks = listOf(navDeepLink { uriPattern = "app://notificacion"
+        // })
+        //) {
+        //Notifications(navController)
+        //}
+        composable("notifications_screen") { Notifications(navController) }
+
 
     }
 }

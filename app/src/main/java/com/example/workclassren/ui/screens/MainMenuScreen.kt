@@ -70,6 +70,15 @@ fun MainMenuScreen(navController: NavHostController) {
             Text("Go to Biometric Sensor Screen")
 
         }
+
+        Button(
+            onClick = { navController.navigate("notifications_screen") }
+        ) {
+            Text("Go to Notifications Screen")
+
+        }
+
+
 }}
 
 
