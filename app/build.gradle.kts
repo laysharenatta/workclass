@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.adaptive.android)
     implementation(libs.androidx.room.common.jvm)
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.work.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,6 +81,24 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     ksp ("androidx.room:room-compiler:$room_version")
+
+// camara extensiones
+    val cameraxVersion = "1.3.1"
+    implementation("androidx.camera:camera-core:$cameraxVersion")
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion") // Necesario para PreviewView
+    implementation("androidx.camera:camera-video:$cameraxVersion")
+    implementation ("io.coil-kt:coil-compose:2.2.2")  // Usa la versión correcta
+
+    //biometricsensor
+    implementation ("androidx.biometric:biometric:1.2.0-alpha05")
+
+    //notipush
+    // WorkManager
+// REVISA QUE NO LOS TENGAS REPETIDOS, USA CTRL + F
+    // implementation("androidx.work:work-runtime-ktx:2.10.1")
+    implementation ("androidx.work:work-runtime:2.10.1")
 
 
 
